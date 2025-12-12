@@ -60,6 +60,8 @@ RUN cd /usr/local/lib/node_modules/n8n && \
 		npm rebuild sqlite3 && \
 		ln -s /usr/local/lib/node_modules/n8n/bin/n8n /usr/local/bin/n8n && \
     mkdir -p /home/node/.n8n && \
+    mkdir -p /home/node/bin && \
+    ln -s /usr/local/lib/node_modules/n8n/bin/n8n /home/node/bin/n8n && \
     chown -R node:node /home/node
 
 RUN cd /usr/local/lib/node_modules/n8n/node_modules/pdfjs-dist && npm install @napi-rs/canvas

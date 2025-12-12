@@ -1,0 +1,93 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 3.40kB done
+#1 DONE 0.0s
+
+#2 [auth] n8nio/base:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [auth] library/alpine:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/n8nio/base:22.21.0
+#4 DONE 1.0s
+
+#5 [internal] load metadata for docker.io/library/alpine:3.22.2
+#5 DONE 1.0s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 418B done
+#6 DONE 0.0s
+
+#7 [launcher-downloader 1/2] FROM docker.io/library/alpine:3.22.2@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412
+#7 resolve docker.io/library/alpine:3.22.2@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412 done
+#7 DONE 0.0s
+
+#8 [system-deps 1/1] FROM docker.io/n8nio/base:22.21.0@sha256:1158260a12075ff54c8c6017ee050c0df279a994386ed23ba3803eb8fb8ee44b
+#8 resolve docker.io/n8nio/base:22.21.0@sha256:1158260a12075ff54c8c6017ee050c0df279a994386ed23ba3803eb8fb8ee44b done
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 17.26MB 5.0s
+#9 transferring context: 20.46MB 6.0s done
+#9 DONE 6.0s
+
+#10 [app-artifact-processor 2/2] COPY ./compiled /app/
+#10 CACHED
+
+#11 [launcher-downloader 2/2] RUN set -e;     case "linux/amd64" in         "linux/amd64") ARCH_NAME="amd64" ;;         "linux/arm64") ARCH_NAME="arm64" ;;         *) echo "Unsupported platform: linux/amd64" && exit 1 ;;     esac;     mkdir /launcher-temp && cd /launcher-temp;     wget -q "https://github.com/n8n-io/task-runner-launcher/releases/download/1.4.1/task-runner-launcher-1.4.1-linux-${ARCH_NAME}.tar.gz";     wget -q "https://github.com/n8n-io/task-runner-launcher/releases/download/1.4.1/task-runner-launcher-1.4.1-linux-${ARCH_NAME}.tar.gz.sha256";     echo "$(cat task-runner-launcher-1.4.1-linux-${ARCH_NAME}.tar.gz.sha256) task-runner-launcher-1.4.1-linux-${ARCH_NAME}.tar.gz" > checksum.sha256;     sha256sum -c checksum.sha256;     mkdir -p /launcher-bin;     tar xzf task-runner-launcher-1.4.1-linux-${ARCH_NAME}.tar.gz -C /launcher-bin;     cd / && rm -rf /launcher-temp
+#11 CACHED
+
+#12 [runtime 4/7] COPY docker/images/n8n/docker-entrypoint.sh /
+#12 CACHED
+
+#13 [runtime 1/7] WORKDIR /home/node
+#13 CACHED
+
+#14 [runtime 2/7] COPY --from=app-artifact-processor /app /usr/local/lib/node_modules/n8n
+#14 CACHED
+
+#15 [runtime 3/7] COPY --from=launcher-downloader /launcher-bin/* /usr/local/bin/
+#15 CACHED
+
+#16 [runtime 5/7] COPY docker/images/n8n/n8n-task-runners.json /etc/n8n-task-runners.json
+#16 CACHED
+
+#17 [runtime 6/7] RUN cd /usr/local/lib/node_modules/n8n && 		npm rebuild sqlite3 && 		ln -s /usr/local/lib/node_modules/n8n/bin/n8n /usr/local/bin/n8n &&     mkdir -p /home/node/.n8n &&     mkdir -p /home/node/bin &&     ln -s /usr/local/lib/node_modules/n8n/bin/n8n /home/node/bin/n8n &&     chown -R node:node /home/node
+#17 10.73 rebuilt dependencies successfully
+#17 10.73 npm notice
+#17 10.73 npm notice New major version of npm available! 10.9.4 -> 11.7.0
+#17 10.73 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+#17 10.73 npm notice To update run: npm install -g npm@11.7.0
+#17 10.73 npm notice
+#17 DONE 10.8s
+
+#18 [runtime 7/7] RUN cd /usr/local/lib/node_modules/n8n/node_modules/pdfjs-dist && npm install @napi-rs/canvas
+#18 2.983 
+#18 2.983 added 2 packages, and audited 3 packages in 3s
+#18 2.984 
+#18 2.984 found 0 vulnerabilities
+#18 DONE 3.0s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 0.8s done
+#19 exporting manifest sha256:899dfa3db629a808fe925a2993a297167908e95a9e1f9b2080381088a7025e31 done
+#19 exporting config sha256:d06300c6c852b9a81e44846c0ef9f5ed9d9033bfe562b467ae527da130eb3d9d done
+#19 exporting attestation manifest sha256:e4ca068e1ae0f0fb3b8b0794a47fff0bb3d6671463cb523116e6896117a3e474 done
+#19 exporting manifest list sha256:d19eda83bc7f9091a87cf3155b9203137ebd04cd46434bc2e2310475afe27001 done
+#19 naming to docker.io/tha0905les/viperchat:n8n1.2 done
+#19 pushing layers
+#19 ...
+
+#20 [auth] tha0905les/viperchat:pull,push token for registry-1.docker.io
+#20 DONE 0.0s
+
+#19 exporting to image
+#19 pushing layers 9.1s done
+#19 pushing manifest for docker.io/tha0905les/viperchat:n8n1.2@sha256:d19eda83bc7f9091a87cf3155b9203137ebd04cd46434bc2e2310475afe27001
+#19 pushing manifest for docker.io/tha0905les/viperchat:n8n1.2@sha256:d19eda83bc7f9091a87cf3155b9203137ebd04cd46434bc2e2310475afe27001 3.3s done
+#19 DONE 13.3s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/605mwzvsd52re2i3em1ennaix
